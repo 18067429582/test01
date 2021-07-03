@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.dao.StudentDao">
+
+  <!--同名的列赋给同名的属性-->
+    <select id="selectStudentById"  resultType="com.bjpowernode.domain.Student">
+        select id,name,email,age from student where id=#{id}
+    </select>
+  <!--传多个参数， 使用Param
+
+
+    这个是返回对象类型
+  -->
+    <select id="selectStudentByIdOrByAge"  resultType="com.bjpowernode.domain.Student">
+        select id,name,email,age  from student where id=#{studentId} or age=#{studentAge}
+    </select>
+    <!--
+    <select id="selectCountStudent"  resultType="java.lang.Integer">
+    这两中方式都行，下边的是使用别名简写:
+
+    返回简单类型
+    -->
+    <select id="selectCountStudent"  resultType="int">
+        select count(*) from student
+    </select>
+
+    <!--  Map
+         返回的列名是map 的key，列值是map的value
+     -->
+    <select id="selectMapById" resultType="java.util.Map">
+        select id,name,email,age  from student where id=#{id}
+    </select>
+
+    <!--
+    使用resultMap:
+       1,先定义一个resultMap
+       2,select标签中使用resultmap引用1中定义的
+    -->
+    <!-- 1,先定义一个resultMap,id是自定义的，type:期望转为的 java 对象的全限定名称或别名-->
+    <resultMap id="studentMap" type="com.bjpowernode.domain.Student">
+        <!--定义列名和java属性的关系
+        column="列名" property="java对象的属性名"
+        -->
+        <!-- 主键字段使用 id -->
+        <id column="id" property="id" />
+        <!--非主键字段使用 result-->
+        <result column="name" property="name"/>
+        <result column="email" property="email" />
+        <result column="age" property="age" />
+    </resultMap>
+    <select id="selectAllStudents" resultMap="studentMap" >
+        select id,name,email,age  from student
+    </select>
+
+   <!--列名和属性名不一样时，一定使用resultMap  (第一种解决方案，推荐使用)-->
+    <resultMap id="MystudentMap" type="com.bjpowernode.VO.MyStudent">
+        <id column="id" property="StuId" />
+        <result column="name" property="StuName"/>
+        <result column="email" property="StuEmail" />
+        <result column="age" property="StuAge" />
+    </resultMap>
+    <select id="selectAllMyStudents" resultMap="MystudentMap">
+        select id,name,email,age  from student
+    </select>
+
+    <!--列名和属性名不一样时，给表得列起别名（as已经省略）  (第二种解决方案)-->
+    <select id="selectAllMyStudents2" resultType="com.bjpowernode.VO.MyStudent">
+        select id StuId,name StuName,email StuEmail,age StuAge from student
+    </select>
+
+</mapper>
+
