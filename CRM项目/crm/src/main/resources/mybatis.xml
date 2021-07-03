@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--指定文件的位置 必须在开始位置，不能在settings,或者其他的标签下面-->
+    <properties resource="jdbc.properties"/>
+
+    <!--日志-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+
+    </settings>
+
+    <!--分页-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor" />
+    </plugins>
+    <environments default="development">
+
+        <environment id="development">
+
+            <!--告诉mybatis提交/回滚事务的方式-->
+            <transactionManager type="JDBC"/>
+            <!--数据源的类型，在java中，源实现了 javax.sql.DataSource 接口的都是数据源
+          type：指定数据源的类型：
+                        1,UNPOOLED 不使用连接池的数据源，在每次执行sql的时候，先创建连接，执行sql，在关闭连接，
+            会创建一个UnPoolDataSource,管理connection对象的使用。（基本不会再开发中使用）
+                        2,POOLED   使用连接池的数据源
+                        3,JNDI     java命名和目录服务（windows注册表），使用较少
+
+            -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--
+        在mappers文件中:第一种方式：
+        一个mapper标签指定一个文件的位置。
+        从类路径开始的路径信息，target/classes（classes下边就是类路径）
+        文件多可以多次出现mapper标签
+
+        一个接口，一个xxx.xml文件
+        <mapper resource="com/bjpowernode/dao/StudentDao.xml"/>
+        -->
+        <!--
+          第二种方式：使用包名，这个包中的所有xx.xml文件一次都可以加载给mybatis，这个经常在大型项目中使用
+          使用package时候的要求：1，xml文件需要和你的接口同名，区分大小写
+                               2，xml文件需要和你的接口在同一目录下
+        -->
+        <package name="com.bjpowernode.dao"/>
+    </mappers>
+
+</configuration>
