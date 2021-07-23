@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.com.bjpowernode.dao.StudentDao">
+
+    <sql id="studentSql">
+        select id,name,email,age from student
+    </sql>
+
+    <!--  if 语法: <if test="使用参数java对象的属性值作为判断条件"
+    -->
+    <select id="selectStudentIf" resultType="com.com.bjpowernode.domain.Student">
+        <include refid="studentSql"/>
+        where <!--1=1-->
+        <if test=" name !=null and name !=''">
+            name =#{name}
+        </if>
+        <if test="age > 0">
+            or age > #{age}
+        </if>
+    </select>
+
+    <!--
+       where 的使用: <where> <if><if>...</where>
+    -->
+    <select id="selectStudentWhere" resultType="com.com.bjpowernode.domain.Student">
+        <include refid="studentSql"/>
+        <where>
+        <if test=" name !=null and name !=''">
+            name =#{name}
+        </if>
+        <if test="age > 0">
+            or age > #{age}
+        </if>
+        </where>
+    </select>
+
+    <!--
+       foreach的使用:
+        collection:表示接口中的方法参数的类型， 如果是数组使用array , 如果是list集合使用list
+	    item:自定义的，表示数组和集合成员的变量
+	    open:循环开始是的字符
+	    close:循环结束时的字符
+        separator:集合成员之间的分隔符
+    -->
+    <select id="selectStudentFor" resultType="com.com.bjpowernode.domain.Student">
+        <include refid="studentSql"/>
+        <if test="list !=null and list.size>0">
+            where id in
+            <foreach collection="list" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+        </if>
+    </select>
+    <!--list集合中是java对象-->
+    <select id="selectStudentForJavaObj" resultType="com.com.bjpowernode.domain.Student">
+        <include refid="studentSql"/>
+        <if test="list !=null and list.size>0">
+            where id in
+            <foreach collection="list" open="(" close=")" item="stuObj" separator=",">
+                #{stuObj.id}  <!--对象的属性；需要自己写，点不出来-->
+            </foreach>
+        </if>
+    </select>
+
+</mapper>
+
