@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace属性：用于指定当前的映射文件和那个接口进行映射，需要指定接口文件的路径，全限定类名-->
+<mapper namespace="com.bjpowernode.store.mapper.UserDao">
+<resultMap id="UserEntityMap" type="com.bjpowernode.store.domain.User">
+    <id column="uid" property="uid"/>
+    <result column="is_delete" property="isDelete"/>
+    <result column="created_user" property="createdUser"/>
+    <result column="created_time" property="createdTime"/>
+    <result column="modified_user" property="modifiedUser"/>
+    <result column="modified_time" property="modifiedTime"/>
+</resultMap>
+    <!-- 插入用户数据：Integer insert(User user) -->
+    <!--
+    useGeneratedKeys：开启某个字段的值自增（主键设置为自增）
+    keyProperty：表示将表中的那个字段作为自增字段
+    -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="uid">
+      INSERT INTO
+        t_user (username, password, salt, phone, email, gender, avatar,
+        is_delete, created_user, created_time, modified_user, modified_time)
+      VALUES
+        (#{username}, #{password}, #{salt}, #{phone}, #{email}, #{gender},
+        #{avatar}, #{isDelete}, #{createdUser}, #{createdTime}, #{modifiedUser},
+        #{modifiedTime})
+     </insert>
+        <!-- 根据用户名查询用户数据：User findByUsername(String username) -->
+    <!--
+    resultMap:当表的字段和对象的属性不一致的时候，来自定义查询结果集的映射规则，
+    -->
+    <select id="findByUsername" resultMap="UserEntityMap">
+      SELECT
+      * FROM t_user
+      WHERE
+    username = #{username}
+</select>
+<update id="updatePassword">
+    update t_user set password = #{newPassword},
+    modified_user = #{username},
+    modified_time = #{now}
+     where uid = #{id}
+</update>
+
+    <update id="updateUserInformation">
+    update t_user set
+    phone = #{phone},
+    email = #{email},
+    gender = #{gender},
+    modified_user = #{username},
+    modified_time = #{modifiedTime}
+     where username = #{username}
+</update>
+
+    <update id="updateUserAvatar">
+    update t_user set
+    avatar = #{avatar},
+    modified_user = #{username},
+    modified_time = #{modifiedTime}
+     where username = #{username} and uid = #{uid}
+</update>
+    <select id="getUserById" resultMap="UserEntityMap">
+    SELECT
+    * FROM t_user
+    WHERE
+    uid = #{id}
+    </select>
+</mapper>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.store.mapper.AddressMapper">
+  <resultMap id="BaseResultMap" type="com.bjpowernode.store.domain.Address">
+    <id column="aid" jdbcType="INTEGER" property="aid" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="province_name" jdbcType="VARCHAR" property="provinceName" />
+    <result column="province_code" jdbcType="CHAR" property="provinceCode" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="city_code" jdbcType="CHAR" property="cityCode" />
+    <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+    <result column="area_code" jdbcType="CHAR" property="areaCode" />
+    <result column="zip" jdbcType="CHAR" property="zip" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="is_default" jdbcType="INTEGER" property="isDefault" />
+    <result column="created_user" jdbcType="VARCHAR" property="createdUser" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="modified_user" jdbcType="VARCHAR" property="modifiedUser" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    aid, uid, name, province_name, province_code, city_name, city_code, area_name, area_code, 
+    zip, address, phone, tel, tag, is_default, created_user, created_time, modified_user, 
+    modified_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_address
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_address
+    where aid = #{aid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bjpowernode.store.domain.Address">
+    insert into t_address (aid, uid, name, 
+      province_name, province_code, city_name, 
+      city_code, area_name, area_code, 
+      zip, address, phone, tel, 
+      tag, is_default, created_user, 
+      created_time, modified_user, modified_time
+      )
+    values (#{aid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{provinceName,jdbcType=VARCHAR}, #{provinceCode,jdbcType=CHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{cityCode,jdbcType=CHAR}, #{areaName,jdbcType=VARCHAR}, #{areaCode,jdbcType=CHAR}, 
+      #{zip,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{tag,jdbcType=VARCHAR}, #{isDefault,jdbcType=INTEGER}, #{createdUser,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{modifiedUser,jdbcType=VARCHAR}, #{modifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bjpowernode.store.domain.Address">
+    insert into t_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        aid,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="provinceName != null">
+        province_name,
+      </if>
+      <if test="provinceCode != null">
+        province_code,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="cityCode != null">
+        city_code,
+      </if>
+      <if test="areaName != null">
+        area_name,
+      </if>
+      <if test="areaCode != null">
+        area_code,
+      </if>
+      <if test="zip != null">
+        zip,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="createdUser != null">
+        created_user,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="modifiedUser != null">
+        modified_user,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null">
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null">
+        #{provinceCode,jdbcType=CHAR},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=CHAR},
+      </if>
+      <if test="areaName != null">
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=CHAR},
+      </if>
+      <if test="zip != null">
+        #{zip,jdbcType=CHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="createdUser != null">
+        #{createdUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedUser != null">
+        #{modifiedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bjpowernode.store.domain.Address">
+    update t_address
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null">
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null">
+        province_code = #{provinceCode,jdbcType=CHAR},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        city_code = #{cityCode,jdbcType=CHAR},
+      </if>
+      <if test="areaName != null">
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        area_code = #{areaCode,jdbcType=CHAR},
+      </if>
+      <if test="zip != null">
+        zip = #{zip,jdbcType=CHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="createdUser != null">
+        created_user = #{createdUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedUser != null">
+        modified_user = #{modifiedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bjpowernode.store.domain.Address">
+    update t_address
+    set uid = #{uid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      province_code = #{provinceCode,jdbcType=CHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=CHAR},
+      area_name = #{areaName,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=CHAR},
+      zip = #{zip,jdbcType=CHAR},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=INTEGER},
+      created_user = #{createdUser,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      modified_user = #{modifiedUser,jdbcType=VARCHAR},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+
+  <select id="countNum" resultType="java.lang.Integer">
+    select count(*) from t_address where uid = #{uid}
+  </select>
+
+  <select id="selectOutAddress" resultMap="BaseResultMap">
+    SELECT
+            *
+        FROM
+            t_address
+        WHERE
+            uid=#{id}
+        ORDER BY
+            is_default DESC, created_time DESC
+  </select>
+
+  <select id="findLastModified" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            t_address
+        WHERE
+            uid=#{uid}
+        ORDER BY
+            modified_time DESC
+            LIMIT 0,1
+    </select>
+
+  <select id="getDefault" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            t_address
+        WHERE
+            uid=#{uid} and is_default = 1
+
+    </select>
+
+  <!-- 将某用户的所有收货地址设置为非默认地址：Integer updateNonDefaultByUid(Integer uid) -->
+  <update id="updateNonDefaultByUid">
+        UPDATE
+            t_address
+        SET
+            is_default=0
+        WHERE
+            uid=#{id}
+    </update>
+  <update id="updateDefaultByAid">
+        UPDATE
+            t_address
+        SET
+            is_default=1,
+            modified_user=#{username},
+            modified_time=#{date}
+        WHERE
+            aid=#{lastModifiedAid}
+    </update>
+
+  <!-- 根据收货地址aid值，查询收货地址详情：Address findByAid(Integer aid) -->
+  <select id="findByAid" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            t_address
+        WHERE
+            aid=#{aid}
+    </select>
+
+
+
+</mapper>
