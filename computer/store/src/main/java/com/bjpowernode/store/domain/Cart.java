@@ -1,14 +1,19 @@
 package com.bjpowernode.store.domain;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
+import java.util.Objects;
 
 /** 购物车数据的实体类 */
+@TableName("t_cart")
 public class Cart extends BaseDomain implements Serializable {
     private Integer cid;
     private Integer uid;
     private Integer pid;
     private Long price;
     private Integer num;
+    private Integer complete;
 
     public Integer getCid() {
         return cid;
@@ -50,38 +55,24 @@ public class Cart extends BaseDomain implements Serializable {
         this.num = num;
     }
 
+    public Integer getComplete() {
+        return complete;
+    }
+
+    public void setComplete(Integer complete) {
+        this.complete = complete;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Cart)) return false;
-
+        if (o == null || getClass() != o.getClass()) return false;
         Cart cart = (Cart) o;
-
-        if (getCid() != null ? !getCid().equals(cart.getCid()) : cart.getCid() != null) return false;
-        if (getUid() != null ? !getUid().equals(cart.getUid()) : cart.getUid() != null) return false;
-        if (getPid() != null ? !getPid().equals(cart.getPid()) : cart.getPid() != null) return false;
-        if (getPrice() != null ? !getPrice().equals(cart.getPrice()) : cart.getPrice() != null) return false;
-        return getNum() != null ? getNum().equals(cart.getNum()) : cart.getNum() == null;
+        return Objects.equals(cid, cart.cid) && Objects.equals(uid, cart.uid) && Objects.equals(pid, cart.pid) && Objects.equals(price, cart.price) && Objects.equals(num, cart.num) && Objects.equals(complete, cart.complete);
     }
 
     @Override
     public int hashCode() {
-        int result = getCid() != null ? getCid().hashCode() : 0;
-        result = 31 * result + (getUid() != null ? getUid().hashCode() : 0);
-        result = 31 * result + (getPid() != null ? getPid().hashCode() : 0);
-        result = 31 * result + (getPrice() != null ? getPrice().hashCode() : 0);
-        result = 31 * result + (getNum() != null ? getNum().hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "cid=" + cid +
-                ", uid=" + uid +
-                ", pid=" + pid +
-                ", price=" + price +
-                ", num=" + num +
-                "} " + super.toString();
+        return Objects.hash(cid, uid, pid, price, num, complete);
     }
 }

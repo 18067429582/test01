@@ -1,0 +1,12 @@
+GET http://address/1/delete_address
+
+###
+
+GET http://address/show_address
+
+###
+
+GET http://address/add_new_address
+
+###
+

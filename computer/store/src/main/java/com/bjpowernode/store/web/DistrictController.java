@@ -19,7 +19,7 @@ public class DistrictController extends BaseController {
     @GetMapping({"", "/"})
     //@RequestMapping(method={RequestMethod.GET})
     public JsonResult<List<District>> getByParent(Integer parent) {
-        System.out.println(parent);
+        //System.out.println(parent);
         List<District> data = districtService.getByParent(parent);
         return new JsonResult<>(OK, data);
     }

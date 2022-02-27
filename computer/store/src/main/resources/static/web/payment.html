@@ -130,9 +130,10 @@
 							</div>
 						</div >
 							<div id="show"></div>
+						<br/>
 							<div class="pay-bar">
 								<a href="cart.html">返回购物车</a>
-								<span class="pull-right" id="totalPrice">695945<input type="button" value="确认付款" class="btn btn-primary btn-lg link-success"/></span>
+								<span class="pull-right" id="totalPrice"><input type="button" value="确认付款" class="btn btn-primary btn-lg link-success"/></span>
 							</div>
 					</form>
 				</div>
@@ -224,19 +225,46 @@
 		</footer>
 		<!--页脚结束-->
 	<script type="text/javascript">
+		let aid;
+		let cids;
 		$(document).ready(function() {
-			$("#show").html("订单号："+GetQueryString("id")+"   金额："+GetQueryString("totalPrice")+"  收款方圆心电脑商城");
-
+			$("#show").html("订单号："+getQueryVariable("oid")+"   金额：￥"+getQueryVariable("totalPrice")+"  收款方:河南农业大学");
+			aid = getQueryVariable("aid")
 		});
-		var LocString=String(window.document.location.href);
-		function GetQueryString(str){
-			var rs=new RegExp("(^|)"+str+"=([^/&]*)(/&|$)","gi").exec(LocString),tmp;
-			if(tmp=rs)return tmp[2];
-			return "没有这个参数";
-		}
-		alert("日记编号："+GetQueryString("oid"));
-		alert("分类编号："+GetQueryString("totalPrice"));
 
+		//获取URL中参数的方法
+		function getQueryVariable(variable){
+			let query = window.location.search.substring(1);
+			let vars = query.split("&");
+			for (let i=0;i<vars.length;i++) {
+				let pair = vars[i].split("=");
+				if(pair[0] == variable){return pair[1];}
+			}
+			return(false);
+		}
+		/*alert("日记编号："+GetQueryString("oid"));
+		alert("分类编号："+GetQueryString("totalPrice"));*/
+
+
+			$("#totalPrice").click(function () {
+				let aid = $("#address-list").val()
+				let cids = location.search.substr(1);
+				$.ajax({
+					url: "/order/creatOrderItem",
+					data: cids,
+					type: "get",
+					dataType: "json",
+					success: function (json) {
+						//如果登录成功
+						if (json.state == 200) {
+							alert("支付成功")
+						}
+					},
+					error: function (xhr) {
+						alert("您的登录信息已经过期，请重新登录！HTTP响应码：" + xhr.status);
+					}
+				})
+			})
 	</script>
 	</body>
 

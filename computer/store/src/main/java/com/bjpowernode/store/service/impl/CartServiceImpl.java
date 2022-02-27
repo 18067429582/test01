@@ -9,9 +9,11 @@ import com.bjpowernode.store.service.CartService;
 import com.bjpowernode.store.service.IProductService;
 import com.bjpowernode.store.service.execption.*;
 import com.bjpowernode.store.vo.CartVO;
+import com.bjpowernode.store.vo.Vo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,33 +21,36 @@ import java.util.List;
 /** 处理商品数据的业务层实现类 */
 @Service
 public class CartServiceImpl implements CartService {
-    @Autowired
+    @Resource
     private CartMapper cartMapper;
-    @Autowired
+    @Resource
     private IProductService productService;
-    @Autowired
+    @Resource
     private ProductMapper productMapper;
 
     @Override
     public void addToCart(Cart cart) {
+        if (cart.getNum() == null){
+            cart.setNum(1);
+        }
         Cart result = cartMapper.selectProductById(cart.getPid(),cart.getUid());
-        if (result != null){
-            if ((result.getNum()+cart.getNum())>10){
-               return;
-            }
-            result.setNum(cart.getNum()+result.getNum());
-            result.setModifiedUser(cart.getModifiedUser());
-            result.setModifiedTime(cart.getModifiedTime());
-            cartMapper.updataCartNum(result);
-        }else{
-            // 调用productService.findById(pid)查询商品数据，得到商品价格
-            Product product = productService.findById(cart.getPid());
-            // 封装数据：price
-            cart.setPrice(product.getPrice());
-            int num = cartMapper.insertProduct(cart);
-            if (num != 1) {
-                throw new InsertException("购物车添加商品异常");
-            }
+            if (result != null){
+                if ((result.getNum()+cart.getNum())>10){
+                    throw new CartNotFoundException("该商品购物车数量已经存在10个，请您仔细核对");
+                }
+                result.setNum(cart.getNum()+result.getNum());
+                result.setModifiedUser(cart.getModifiedUser());
+                result.setModifiedTime(cart.getModifiedTime());
+                cartMapper.updataCartNum(result);
+            }else{
+                // 调用productService.findById(pid)查询商品数据，得到商品价格
+                Product product = productService.findById(cart.getPid());
+                // 封装数据：price
+                cart.setPrice(product.getPrice());
+                int num = cartMapper.insertProduct(cart);
+                if (num != 1) {
+                    throw new InsertException("购物车添加商品异常");
+                }
         }
     }
 
@@ -172,5 +177,16 @@ public class CartServiceImpl implements CartService {
             }
         }
         return cartVO;
+    }
+
+    @Override
+    public List<Vo> test() {
+
+        List<Vo> test = cartMapper.test();
+        if (test == null ){
+            throw new TestException("参数有误");
+        }
+        return test;
+
     }
 }

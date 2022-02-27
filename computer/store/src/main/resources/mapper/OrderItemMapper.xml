@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.store.mapper.OrderItemMapper">
+
+    <!-- 插入订单商品数据：Integer insertOrderItem(OrderItem orderItem) -->
+    <insert id="insertOrderItem" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_order_item (
+            id,oid,pid, title, image, price, num, created_user,
+            created_time, modified_user, modified_time,uid
+        ) VALUES (
+            #{id},#{oid},#{pid}, #{title}, #{image}, #{price}, #{num}, #{createdUser},
+            #{createdTime}, #{modifiedUser}, #{modifiedTime},#{uid}
+        )
+    </insert>
+
+    <select id="getUserOrderItemByOrderId" resultType="com.bjpowernode.store.domain.OrderItem">
+        select * from t_order_item where oid = #{oid}
+    </select>
+
+</mapper>

@@ -5,6 +5,7 @@ import com.bjpowernode.store.domain.User;
 import com.bjpowernode.store.service.CartService;
 import com.bjpowernode.store.util.JsonResult;
 import com.bjpowernode.store.vo.CartVO;
+import com.bjpowernode.store.vo.Vo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,7 @@ public class CartController extends BaseController {
         cartService.addToCart(cart);
         return new JsonResult<>(OK);
     }
+
 
     @RequestMapping("/showProductList")
     public JsonResult<List<CartVO>> getProductList(HttpSession session) {
@@ -92,6 +94,12 @@ public class CartController extends BaseController {
         CartVO data = cartService.showPrice(cids,uid);
         // 返回成功与数据
         return new JsonResult<>(OK, data);
+    }
+
+    @RequestMapping("/test")
+    public JsonResult test() {
+        List<Vo> test = cartService.test();
+        return new JsonResult(OK,MESSAGE+test.size(), test);
     }
 
 }

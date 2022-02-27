@@ -1,10 +1,20 @@
 package com.bjpowernode.store.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bjpowernode.store.domain.Order;
 import com.bjpowernode.store.domain.OrderItem;
+import org.springframework.stereotype.Repository;
 
-public interface OrderMapper {
+import java.util.List;
+
+@Repository
+public interface OrderMapper extends BaseMapper<Order> {
     Integer insertOrder(Order order);
 
-    Integer insertOrderItem(OrderItem item);
+
+    List<Order> selectByUid(Integer uid);
+
+    List<Order> getOrdersByUid(Integer uid);
+
+    List<Order> selectByUidComplete(Integer uid);
 }

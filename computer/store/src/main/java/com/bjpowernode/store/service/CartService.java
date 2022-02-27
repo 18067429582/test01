@@ -2,6 +2,7 @@ package com.bjpowernode.store.service;
 
 import com.bjpowernode.store.domain.Cart;
 import com.bjpowernode.store.vo.CartVO;
+import com.bjpowernode.store.vo.Vo;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -24,4 +25,7 @@ public interface CartService {
     void delete(String[] cids, Integer uid);
 
     CartVO showPrice(String[] cids, Integer uid);
+
+    List<Vo> test();
+
 }

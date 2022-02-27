@@ -1,10 +1,12 @@
 package com.bjpowernode.store.mapper;
 
 import com.bjpowernode.store.domain.Address;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 
+@Repository
 public interface AddressMapper {
     int deleteByPrimaryKey(Integer aid);
 

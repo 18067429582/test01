@@ -22,7 +22,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/cart.css" />
 	</head>
 
-	<body>
+	<body background="../images/xuexiao/td18.jpg">
 		<!--头部-->
 		<header class="header">
 			<!--电脑商城logo-->
@@ -266,8 +266,9 @@
 								type : "post",
 								dataType : "json",
 								success : function (json) {
-									if(json.state){
-										showProductList();
+									if(json.state==200){
+										alert(123)
+										window.location.href = "cart.html"
 									}else{
 										alert("宝贝删除失败"+json.message);
 									}

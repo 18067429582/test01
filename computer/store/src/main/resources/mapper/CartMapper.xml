@@ -15,6 +15,10 @@
        select * from t_cart where pid=#{pid} and uid = #{uid}
    </select>
 
+    <select id="selectCartByPidUid" resultMap="CartDomainMap">
+       select * from t_cart where pid=#{pid} and uid = #{uid}
+   </select>
+
     <select id="selectProductByPidCid" resultMap="CartDomainMap">
        select * from t_cart where pid=#{pid} and cid = #{cid}
    </select>
@@ -25,7 +29,8 @@
 
     <insert id="insertProduct">
         insert into t_cart
-        (   cid,
+        (
+            cid,
             uid,
             pid,
             price,
@@ -59,6 +64,7 @@
             modified_time=#{modifiedTime}
      where cid = #{cid}
     </update>
+    <update id="reduceProductNum"></update>
 
     <select id="findByUid" resultMap="CartDomainMap">
        select cid,uid,pid,num,price from t_cart where uid=#{uid}
@@ -107,5 +113,10 @@
         t_cart
         WHERE
         cid = #{cid} and uid = #{uid}
+    </select>
+
+
+    <select id="test" resultType="com.bjpowernode.store.vo.Vo">
+        select cid,count(1) count from t_cart GROUP BY cid
     </select>
 </mapper>

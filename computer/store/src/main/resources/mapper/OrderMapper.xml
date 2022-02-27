@@ -3,27 +3,43 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bjpowernode.store.mapper.OrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.bjpowernode.store.domain.Order">
+        <id column="oid" jdbcType="VARCHAR" property="oid" />
+        <result column="uid" jdbcType="INTEGER" property="uid" />
+        <result column="recv_name" jdbcType="VARCHAR" property="recvName" />
+        <result column="recv_phone" jdbcType="VARCHAR" property="recvPhone" />
+        <result column="recv_province" jdbcType="VARCHAR" property="recvProvince" />
+        <result column="recv_city" jdbcType="VARCHAR" property="recvCity" />
+        <result column="recv_area" jdbcType="VARCHAR" property="recvArea" />
+        <result column="recv_address" jdbcType="VARCHAR" property="recvAddress" />
+        <result column="total_price"  property="totalPrice" />
+
+    </resultMap>
     <!-- 插入订单数据：Integer insertOrder(Order order) -->
     <insert id="insertOrder" useGeneratedKeys="true" keyProperty="oid">
         INSERT INTO t_order (
-            uid, recv_name, recv_phone, recv_province, recv_city, recv_area, recv_address,
+            oid,uid, recv_name, recv_phone, recv_province, recv_city, recv_area, recv_address,
             total_price,status, order_time, pay_time, created_user, created_time, modified_user,
             modified_time
         ) VALUES (
-            #{uid}, #{recvName}, #{recvPhone}, #{recvProvince}, #{recvCity}, #{recvArea},
+            #{oid},#{uid}, #{recvName}, #{recvPhone}, #{recvProvince}, #{recvCity}, #{recvArea},
             #{recvAddress}, #{totalPrice}, #{status}, #{orderTime}, #{payTime}, #{createdUser},
             #{createdTime}, #{modifiedUser}, #{modifiedTime}
         )
     </insert>
 
-    <!-- 插入订单商品数据：Integer insertOrderItem(OrderItem orderItem) -->
-    <insert id="insertOrderItem" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO t_order_item (
-            oid, pid, title, image, price, num, created_user,
-            created_time, modified_user, modified_time
-        ) VALUES (
-            #{oid}, #{pid}, #{title}, #{image}, #{price}, #{num}, #{createdUser},
-            #{createdTime}, #{modifiedUser}, #{modifiedTime}
-        )
-    </insert>
+
+    <select id="selectByUid" resultType="com.bjpowernode.store.domain.Order">
+        select * from t_order where uid = #{uid}
+    </select>
+
+
+    <select id="selectByUidComplete" resultType="com.bjpowernode.store.domain.Order">
+        select * from t_order where uid = #{uid} and complete = 0;
+    </select>
+
+    <select id="getOrdersByUid" resultMap="BaseResultMap">
+        select * from t_order where uid = #{uid}
+    </select>
 </mapper>

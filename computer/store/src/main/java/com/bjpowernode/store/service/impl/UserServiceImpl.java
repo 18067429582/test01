@@ -8,12 +8,13 @@ import com.bjpowernode.store.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
+    @Resource
     private UserDao userDao;
     @Override
     public Integer insert(User user) {
@@ -65,10 +66,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User verify(String username,String password) {
-        boolean flag = true;
         User user = userDao.findByUsername(username);
         if (user==null){
-            flag = false;
             throw new UserNotFoundException("用户名不存在");
         }
         //密码验证
@@ -76,7 +75,6 @@ public class UserServiceImpl implements UserService {
         String sale = user.getSalt();
         password = UUIDUtil.getUUID(password,sale);
         if (!password.equals(password1)){
-            flag = false ;
             throw new PasswordNotMatchException("密码错误");
         }
         if (user.getIsDelete()==1){

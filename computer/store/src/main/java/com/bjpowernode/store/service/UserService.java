@@ -24,7 +24,6 @@ public interface UserService {
 
     /**
      * 用户登录功能
-     * @param user
      * @return
      */
     User verify(String username,String password);

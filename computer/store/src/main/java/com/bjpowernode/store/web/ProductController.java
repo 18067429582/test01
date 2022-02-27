@@ -20,6 +20,12 @@ public class ProductController extends BaseController {
     @RequestMapping("hot_list")
     public JsonResult<List<Product>> getHotList() {
         List<Product> data = productService.findHotList();
+        return new JsonResult<List<Product>>(OK,MESSAGE,data);
+    }
+
+    @RequestMapping("new_list")
+    public JsonResult<List<Product>> getNewList() {
+        List<Product> data = productService.findNewList();
         return new JsonResult<List<Product>>(OK, data);
     }
 

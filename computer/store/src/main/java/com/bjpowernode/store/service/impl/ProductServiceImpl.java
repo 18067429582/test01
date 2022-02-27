@@ -7,12 +7,13 @@ import com.bjpowernode.store.service.execption.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /** 处理商品数据的业务层实现类 */
 @Service
 public class ProductServiceImpl implements IProductService {
-    @Autowired
+    @Resource
     private ProductMapper productMapper;
 
     @Override
@@ -45,5 +46,18 @@ public class ProductServiceImpl implements IProductService {
         product.setModifiedTime(null);
         // 返回查询结果
         return product;
+    }
+
+    @Override
+    public List<Product> findNewList() {
+        List<Product> list = productMapper.findNewList();
+        for (Product product : list) {
+            product.setPriority(null);
+            product.setCreatedUser(null);
+            product.setCreatedTime(null);
+            product.setModifiedUser(null);
+            product.setModifiedTime(null);
+        }
+        return list;
     }
 }

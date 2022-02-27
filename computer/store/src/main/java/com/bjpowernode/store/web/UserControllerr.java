@@ -23,7 +23,7 @@ import static com.bjpowernode.store.web.BaseController.OK;
 
 @RestController
 @RequestMapping("user")
-public class UserControllern extends BaseController{
+public class UserControllerr extends BaseController{
     /**
      * idea检测功能，接口是不能直接创建bean对象的
      * 解决方案：改变spring的权限，在settings中搜inspections，设置spring core的权限

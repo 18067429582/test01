@@ -62,8 +62,15 @@
 							success: function(json) {
 								if (json.state == 200) {
 									alert("注册成功！");
-									// location.href = "login.html";
+									location.href = "login.html";
 								} else {
+									//页面加载完毕后，将用户文本框中的内容清空
+									$("#username").val("");
+									$("#password").val("");
+									$("#password1").val("");
+
+									//页面加载完毕后，让用户的文本框自动获得焦点
+									$("#username").focus();
 									alert("注册失败！" + json.message);
 								}
 							},

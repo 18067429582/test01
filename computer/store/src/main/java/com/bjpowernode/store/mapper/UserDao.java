@@ -1,19 +1,22 @@
 package com.bjpowernode.store.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bjpowernode.store.domain.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
 /**
  * 用户模块接口
  */
-public interface UserDao {
+@Repository
+public interface UserDao extends BaseMapper<User> {
     /**
      * 插入用户数据
      * @param user 用户数据
      * @return 受影响的行数
      */
-    Integer insert(User user);
+    int insert(User user);
     /**
      * 根据用户名查询用户数据
      * @param username 用户名
@@ -21,7 +24,7 @@ public interface UserDao {
      */
     User findByUsername(String username);
 
-    int selectUser(User user);
+    //int selectUser(User user);
 
     int updatePassword(Integer id, String username, String newPassword, Date now);
 

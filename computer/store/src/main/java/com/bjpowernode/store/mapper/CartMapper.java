@@ -1,11 +1,16 @@
 package com.bjpowernode.store.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bjpowernode.store.domain.Cart;
+import com.bjpowernode.store.domain.Order;
 import com.bjpowernode.store.vo.CartVO;
+import com.bjpowernode.store.vo.Vo;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface CartMapper {
+@Repository
+public interface CartMapper extends BaseMapper<Cart> {
     Cart selectProductById(Integer pid,Integer uid);
 
     Cart selectProductByPidCid(Integer pid,Integer cid);
@@ -31,4 +36,6 @@ public interface CartMapper {
     Cart selectCartByCidUid(String cid, Integer uid);
 
     Cart selectCartByPidUid(Integer pid, Integer uid);
+
+    List<Vo> test();
 }

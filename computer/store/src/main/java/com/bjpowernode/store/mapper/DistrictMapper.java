@@ -2,9 +2,11 @@ package com.bjpowernode.store.mapper;
 
 
 import com.bjpowernode.store.domain.District;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 /** 处理省/市/区数据的持久层接口 */
 public interface DistrictMapper {
     /**

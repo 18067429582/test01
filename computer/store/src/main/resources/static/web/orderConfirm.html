@@ -292,9 +292,12 @@
 								let list = json.data;
 								var html = "";
 								$.each(list,function (i,n) {
+
 									html += '<option value="'+n.aid+'">'+n.name+'&nbsp;&nbsp;&nbsp;'+n.tag+'&nbsp;&nbsp;&nbsp;'+n.provinceName+n.cityName+n.areaName+n.address+'&nbsp;&nbsp;&nbsp;'+n.phone+'</option>'
 								})
 								$("#address-list").append(html);
+							}else {
+								alert(json.message)
 							}
 
 						}
@@ -304,6 +307,8 @@
 				$("#btn-create-order").click(function () {
 					let aid = $("#address-list").val()
 					let cids = location.search.substr(1);
+					//alert(location.search.substr(1))
+					//alert(cids)
 					$.ajax({
 						url: "/order/creat",
 						data: "aid="+aid+"&"+cids,
@@ -313,7 +318,7 @@
 							//如果登录成功
 							if (json.state == 200) {
 								let list = json.data;
-								location.href='payment.html?oid='+list.oid+'&totalPrice=' + list.totalPrice;
+								location.href='payment.html?oid='+list.oid+'&totalPrice=' + list.totalPrice+'&aid='+aid +'&'+cids;
 							}
 						},
 						error: function(xhr) {

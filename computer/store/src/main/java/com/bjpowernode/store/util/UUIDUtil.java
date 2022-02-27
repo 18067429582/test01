@@ -2,6 +2,8 @@ package com.bjpowernode.store.util;
 
 import org.springframework.util.DigestUtils;
 
+import java.util.UUID;
+
 
 public class UUIDUtil {
 	
@@ -13,5 +15,11 @@ public class UUIDUtil {
 		//加密算法
 		//(sale+password+sale).getBytes():转为字节
 		return password1;
+	}
+
+	public static String getUUIDId(){
+
+		return UUID.randomUUID().toString().replaceAll("-","");
+
 	}
 }

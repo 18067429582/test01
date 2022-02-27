@@ -62,8 +62,46 @@
 						type: "POST",
 						dataType: "JSON",
 						success: function(json) {
+							alert(json.message)
 						}
 					});
+				})
+
+				$("#btn-add-to-collect").click(function () {
+					$.ajax({
+						url: "/favorites/add_favorites",
+						data:{
+							"pid" : pid
+						},
+						type: "POST",
+						dataType: "JSON",
+						success: function(data) {
+							//如果添加成功
+							if (data.state == 200) {
+								//跳转到工作台的初始也（欢迎页）
+								window.location.href = "/web/favorites.html";
+								//如果登录失败
+							} else {
+								alert("添加失败"+data.message)
+							}
+						}
+					});
+				})
+
+				$("#btn-addToCart").click(function () {
+					let num = $("#num").val();
+					$.ajax({
+						url: "/cart/add_cart",
+						data:{
+							"pid" : pid,
+							"num" : num
+						},
+						type: "POST",
+						dataType: "JSON",
+						success: function(json) {
+							window.location.href="cart.html";
+						}
+					})
 				})
 			})
 		</script>
@@ -189,11 +227,11 @@
 							<p><small><b>电脑商城</b>发货并提供售后服务,今日下单,明日送达</small></p>
 						</div>
 						<div class="col-md-12 form-space">
-							<input class="btn btn-primary btn-lg btn-block" type="button" value="立即购买">
+							<input id="btn-addToCart" class="btn btn-primary btn-lg btn-block" type="button" value="立即购买">
 						</div>
 						<div class="col-md-12 form-space">
 							<button id="btn-add-to-cart" type="button" class="btn btn-default go-cart"><span class="fa fa-cart-plus"></span> 加入购物车</button>
-							<button id="btn-add-to-collect" type="button" class="btn btn-default"><span class="fa fa-heart-o"></span> 加入收藏</button>
+							<button id="btn-add-to-collect" type="button" class="btn btn-default "><span class="fa fa-heart-o" ></span> 加入收藏</button>
 						</div>
 					</form>
 				</div>
@@ -314,7 +352,7 @@
 									<p>关于我们</p>
 								</a>
 							</li>
-							<li><a href="#">关于圆心</a></li>
+							<li><a href="#">河南农业大学</a></li>
 							<li><a href="#">联系我们</a></li>
 							<li>
 								<span class="fa fa-wechat"></span>
@@ -336,7 +374,7 @@
 			</div>
 			<!-- 页面底部-备案号 #footer -->
 			<div class="col-md-12 text-center bottom">
-				Copyright © 2022 dnsc.cn All Rights Reserved 京ICP备08963888号-45 <a target="_blank" href="http://www.dnsc.cn/">圆心科技集团有限公司</a> 版权所有
+				Copyright © 2022 dnsc.cn All Rights Reserved 京ICP备08963888号-45 <a target="_blank" href="http://jwc.henau.edu.cn//">河南农业大学</a> 版权所有
 			</div>
 		</footer>
 		<!--页脚结束-->

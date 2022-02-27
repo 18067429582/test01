@@ -14,7 +14,7 @@
         <result column="modified_time" property="modifiedTime"/>
     </resultMap>
 
-    <!-- 查询热销商品的前四名：List<Product> findHostList() -->
+    <!-- 查询热销商品的前10名：List<Product> findHostList() -->
     <select id="findHotList" resultMap="ProductEntityMap">
         SELECT
             *
@@ -24,7 +24,30 @@
             status=1
         ORDER BY
             priority DESC
-            LIMIT 0,4
+            LIMIT 0,10
+    </select>
+
+    <select id="findProductListByPname" resultMap="ProductEntityMap">
+        SELECT
+            *
+        FROM
+            t_product
+        WHERE
+        title like '%' #{pname} '%'
+    </select>
+
+
+    <!-- 查询新到商品的前10名： -->
+    <select id="findNewList" resultMap="ProductEntityMap">
+        SELECT
+            *
+        FROM
+            t_product
+        WHERE
+            status=1
+        ORDER BY
+            priority ASC
+            LIMIT 0,10
     </select>
 
     <!-- 根据商品id查询商品详情：Product findById(Integer id) -->
@@ -37,5 +60,8 @@
             id=#{id}
     </select>
 
+    <update id="editNum" parameterType="java.lang.Integer">
+        update t_product set num = #{pNum}-#{num} where id = #{pid};
+    </update>
 
 </mapper>
