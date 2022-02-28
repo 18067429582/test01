@@ -6,6 +6,8 @@ import com.bjpowernode.store.mapper.AddressMapper;
 import com.bjpowernode.store.service.AddressService;
 import com.bjpowernode.store.service.IDistrictService;
 import com.bjpowernode.store.service.execption.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import java.util.List;
 
 @Service
 public class AddressServiceImpl implements AddressService {
+
+    private static Logger log = LoggerFactory.getLogger(AddressServiceImpl.class.getName());
     @Autowired
     private AddressMapper addressMapper;
     @Autowired
@@ -32,6 +36,7 @@ public class AddressServiceImpl implements AddressService {
         //查询用户地址数量，判断是否将该地址设置为默认值
         int count = addressMapper.countNum(address.getUid());
         if (count >= maxCount) {
+            log.error("用户地址已经达到上限");
             throw new AddressCountLimitException("用户地址已经达到上限");
         }
         if (address.getName() != null && !address.getName().equals("")) {
@@ -52,9 +57,11 @@ public class AddressServiceImpl implements AddressService {
             //调用插入地址的方法
             int num = addressMapper.insert(address);
             if (num != 1) {
+                log.error("用户收货地址插入异常");
                 throw new InsertException("用户收货地址插入异常");
             }
         }else {
+            log.error("标星号的数据不能为空");
             throw new AddressNotFoundException("标星号的数据不能为空");
         }
 
@@ -64,6 +71,7 @@ public class AddressServiceImpl implements AddressService {
     public List<Address> selectOutAddress(Integer id) {
         List<Address> list = addressMapper.selectOutAddress(id);
         if (list.size() == 0){
+            log.error("该用户暂未添加地址");
             throw new InsertException("该用户暂未添加地址");
         }
         return list;
@@ -90,6 +98,7 @@ public class AddressServiceImpl implements AddressService {
         Integer count1 = addressMapper.countNum(id);
         // 判断目前的收货地址的数量是否为0
         if (count1 == 0) {
+            log.info("该用户：--->{}暂未添加收货地址",id);
             return;
         }
         //查看库中是否还有默认地址

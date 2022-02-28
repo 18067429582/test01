@@ -36,7 +36,7 @@ public class SearchServiceImpl implements SearchService {
             throw new ProductNotFoundException("不好意思没找到该商品");
         }
         for (Product product : list) {
-            System.out.println(product.toString());
+//            System.out.println(product.toString());
             product.setPriority(null);
             product.setCreatedUser(null);
             product.setCreatedTime(null);

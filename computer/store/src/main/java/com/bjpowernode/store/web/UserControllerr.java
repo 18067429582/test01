@@ -38,7 +38,8 @@ public class UserControllerr extends BaseController{
      * @return
      */
     @RequestMapping("reg")
-    public JsonResult<Void> reg(User user){
+    public JsonResult<Void> reg(User user,HttpServletRequest request){
+        user.setIp(request.getRemoteAddr());
         userService.reg(user);
         return new JsonResult<Void>(OK);
     }

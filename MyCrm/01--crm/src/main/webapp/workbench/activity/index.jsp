@@ -27,7 +27,6 @@
 
 			//为创建按钮绑定事件，打开添加操作的模态窗口
 			$("#addBtn").click(function () {
-
 				$(".time").datetimepicker({
 					minView: "month",
 					language:  'zh-CN',
@@ -37,55 +36,36 @@
 					pickerPosition: "bottom-left"
 				});
 				/*
-
                     操作模态窗口的方式：
-
                         需要操作的模态窗口的jquery对象，调用modal方法，为该方法传递参数 show:打开模态窗口   hide：关闭模态窗口
-
-
                  */
-
 				//alert(123);
 				//$("#createActivityModal").modal("show");
-
 				//走后台，目的是为了取得用户信息列表，为所有者下拉框铺值
 				$.ajax({
-
 					url : "workbench/activity/getUserList.do",
 					type : "get",
 					dataType : "json",
 					success : function (data) {
-
 						/*
 
                             data
                                 [{"id":?,"name":?,"loginAct":?.......},{2},{3}...]
 
                          */
-
 						var html = "<option></option>";
-
 						//遍历出来的每一个n，就是每一个user对象
 						$.each(data,function (i,n) {
-
 							html += "<option value='"+n.id+"'>"+n.name+"</option>";
-
 						})
-
 						$("#create-owner").html(html);
-
-
 						//将当前登录的用户，设置为下拉框默认的选项
 						/*
-
                             <select id="create-owner">
                                 <option value="40f6cdea0bd34aceb77492a1656d9fb3">张三</option>
                                 <option value="06f5fc056eac41558a964f96daa7f27c">李四</option>
                             </select>
-
                             $("#create-owner").val("40f6cdea0bd34aceb77492a1656d9fb3");
-
-
                          */
 
 						//取得当前登录用户的id
@@ -95,20 +75,12 @@
 						$("#create-owner").val(id);
 						//所有者下拉框处理完毕后，展现模态窗口
 						$("#createActivityModal").modal("show");
-
 					}
-
 				})
-
-
 			})
-
-
 			//为保存按钮绑定事件，执行添加操作
 			$("#saveBtn").click(function () {
-
 				$.ajax({
-
 					url : "workbench/activity/save.do",
 					data : {
 
@@ -123,15 +95,11 @@
 					type : "post",
 					dataType : "json",
 					success : function (data) {
-
 						/*
-
                             data
                                 {"success":true/false}
-
                          */
 						if(data.success){
-
 							//添加成功后
 							//刷新市场活动信息列表（局部刷新）
 							//pageList(1,2);
@@ -150,12 +118,8 @@
                             *
                             *
                             * */
-
 							//做完添加操作后，应该回到第一页，维持每页展现的记录数
-
 							pageList(1,$("#activityPage").bs_pagination('getOption', 'rowsPerPage'));
-
-
 
 							//清空添加操作模态窗口中的数据
 							//提交表单
@@ -184,16 +148,11 @@
 							//关闭添加操作的模态窗口
 							$("#createActivityModal").modal("hide");
 
-
-
 						}else{
 
 							alert("添加市场活动失败");
 
 						}
-
-
-
 
 					}
 
@@ -210,10 +169,7 @@
 			$("#searchBtn").click(function () {
 
 				/*
-
                     点击查询按钮的时候，我们应该将搜索框中的信息保存起来,保存到隐藏域中
-
-
                  */
 
 				$("#hidden-name").val($.trim($("#search-name").val()));

@@ -5,6 +5,8 @@ import com.bjpowernode.store.service.execption.*;
 import com.bjpowernode.store.mapper.UserDao;
 import com.bjpowernode.store.service.UserService;
 import com.bjpowernode.store.util.UUIDUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
+
+    private static Logger log = LoggerFactory.getLogger(UserServiceImpl.class.getName());
     @Override
     public Integer insert(User user) {
         return userDao.insert(user);
@@ -86,6 +90,7 @@ public class UserServiceImpl implements UserService {
         vo.setUid(user.getUid());
         vo.setUsername(user.getUsername());
         vo.setAvatar(user.getAvatar());
+        log.info("登录成功---->用户：{}",vo.getUid());
         return vo;
     }
 
