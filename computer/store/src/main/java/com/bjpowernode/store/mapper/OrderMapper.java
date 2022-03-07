@@ -17,4 +17,9 @@ public interface OrderMapper extends BaseMapper<Order> {
     List<Order> getOrdersByUid(Integer uid);
 
     List<Order> selectByUidComplete(Integer uid);
+
+    void updateComplete(String oid);
+
+    Order selectByOid(String oid);
+
 }

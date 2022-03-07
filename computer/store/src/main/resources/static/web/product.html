@@ -25,6 +25,11 @@
 		<script src="../js/imgmove.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(function () {
+				var username = window.sessionStorage.getItem("username");
+				if (username != null) {
+					html = '<li><a href="login.html" id="test"><span className="fa fa-user"></span>&nbsp&nbsp;用户:' + username + '</a></li>'
+					$("#yh").html(html);
+				}
 				let price = 0;
 				//从地址栏获取商品的id
 				let pid = $.getUrlParam("id");
@@ -141,7 +146,7 @@
 							</div>
 						</li>
 						<li class="li-split">|</li>
-						<li><a href="login.html"><span class="fa fa-user"></span>&nbsp;登录</a></li>
+						<li id="yh"><a href="login.html"><span class="fa fa-user"></span>&nbsp;登录</a></li>
 					</ul>
 				</div>
 			</div>

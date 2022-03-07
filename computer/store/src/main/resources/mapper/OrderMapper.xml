@@ -21,11 +21,11 @@
         INSERT INTO t_order (
             oid,uid, recv_name, recv_phone, recv_province, recv_city, recv_area, recv_address,
             total_price,status, order_time, pay_time, created_user, created_time, modified_user,
-            modified_time
+            modified_time,flag
         ) VALUES (
             #{oid},#{uid}, #{recvName}, #{recvPhone}, #{recvProvince}, #{recvCity}, #{recvArea},
             #{recvAddress}, #{totalPrice}, #{status}, #{orderTime}, #{payTime}, #{createdUser},
-            #{createdTime}, #{modifiedUser}, #{modifiedTime}
+            #{createdTime}, #{modifiedUser}, #{modifiedTime},0
         )
     </insert>
 
@@ -39,7 +39,17 @@
         select * from t_order where uid = #{uid} and complete = 0;
     </select>
 
-    <select id="getOrdersByUid" resultMap="BaseResultMap">
-        select * from t_order where uid = #{uid}
+
+    <select id="selectByOid" resultType="com.bjpowernode.store.domain.Order">
+        select * from t_order where oid = #{oid} and complete = 0;
     </select>
+
+    <select id="getOrdersByUid" resultMap="BaseResultMap">
+        select * from t_order where uid = #{uid} and complete = 0
+    </select>
+
+    <update id="updateComplete" parameterType="java.lang.String">
+        update t_order set complete = 1 where id = #{oid}
+    </update>
+
 </mapper>

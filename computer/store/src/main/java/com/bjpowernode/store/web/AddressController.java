@@ -39,6 +39,12 @@ public class AddressController extends BaseController{
         return new JsonResult<>(OK,data);
     }
 
+    /**
+     * 采用restful形式传参
+     * @param aid
+     * @param session
+     * @return
+     */
     @RequestMapping("{aid}/delete_address")
     public JsonResult<List<Address>> deleteAddress(@PathVariable("aid") Integer aid, HttpSession session){
         addressService.deleteAddressByAid(aid,session);

@@ -52,7 +52,7 @@
 							</div>
 						</li>
 						<li class="li-split">|</li>
-						<li><a href="login.html"><span class="fa fa-user"></span>&nbsp;登录</a></li>
+						<li id="yh"><a href="login.html"><span class="fa fa-user"></span>&nbsp;登录</a></li>
 					</ul>
 				</div>
 			</div>
@@ -85,4 +85,13 @@
 		<!--头部结束-->
 		<!--导航结束-->
 	</body>
+<script>
+	$(function (){
+		var username = window.sessionStorage.getItem("username");
+		if (username != null) {
+			html = '<li><a href="login.html" id="test"><span className="fa fa-user"></span>&nbsp&nbsp;用户:' + username + '</a></li>'
+			$("#yh").html(html);
+		}
+	})
+</script>
 </html>

@@ -8,9 +8,16 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface OrderItemMapper extends BaseMapper<Order> {
+public interface OrderItemMapper{
 
     Integer insertOrderItem(OrderItem item);
 
     List<OrderItem> getUserOrderItemByOrderId(String oid);
+
+
+    OrderItem selectById(String id);
+
+    Integer selectByOidAndflag(String oid);
+
+    void updataStatus(String id);
 }

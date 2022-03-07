@@ -64,7 +64,7 @@ public class CartController extends BaseController {
 
     @GetMapping("/orderList")
     public JsonResult<List<CartVO>> getVOByCids(Integer[] cids, HttpSession session) {
-        System.out.println(cids);
+        //System.out.println(cids);
         // 从Session中获取uid
         User user = (User) session.getAttribute("user");
         Integer uid = user.getUid();
@@ -87,7 +87,7 @@ public class CartController extends BaseController {
     public JsonResult<CartVO> showPrice(HttpServletRequest request, HttpSession session) {
         String[] cids = request.getParameterValues("id");
         // 从Session中获取uid
-        System.out.println(Arrays.toString(cids));
+        //System.out.println(Arrays.toString(cids));
         User user = (User) session.getAttribute("user");
         Integer uid = user.getUid();
         // 调用业务对象执行查询数据

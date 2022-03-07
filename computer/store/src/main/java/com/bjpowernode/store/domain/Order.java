@@ -27,5 +27,6 @@ public class Order extends BaseDomain implements Serializable {
     private Date payTime;
     private String time;
     private Integer complete;
+    private Integer pid;
 
 }

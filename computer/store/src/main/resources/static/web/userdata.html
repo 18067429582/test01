@@ -27,6 +27,11 @@
 				编写逻辑代码
 			})*/
 			$(function () {
+				var username = window.sessionStorage.getItem("username");
+				if (username != null) {
+					html = '<li><a href="login.html" id="test"><span className="fa fa-user"></span>&nbsp&nbsp;用户:' + username + '</a></li>'
+					$("#yh").html(html);
+				}
 				load();
 				$("#btn-change-info").click(function () {
 					$.ajax({
@@ -110,7 +115,7 @@
 							</div>
 						</li>
 						<li class="li-split">|</li>
-						<li><a href="login.html"><span class="fa fa-user"></span>&nbsp;登录</a></li>
+						<li id="yh"><a href="login.html"><span class="fa fa-user"></span>&nbsp;登录</a></li>
 					</ul>
 				</div>
 			</div>

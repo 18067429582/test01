@@ -90,8 +90,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2" id="indexMenu">
-					<ul class="index-menu">
-					</ul>
+<!--					<ul class="index-menu">-->
+<!--					</ul>-->
 					<div id="showIndex">
 						<ul class="second-menu">
 							<li class="second-menu-li">####</li>
@@ -142,9 +142,9 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<!--推荐栏目-->
-			<div class="row">
+			<div class="row" >
 				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -279,13 +279,20 @@
 				//从地址栏获取商品的id
 				let username = $.getUrlParam("username");
 				if (username != null){
+					window.sessionStorage.setItem("username",username);
+					// alert(window.sessionStorage.getItem("username"))
 					html = '<li><a href="login.html" id="test"><span className="fa fa-user"></span>&nbsp&nbsp;用户:'+username+'</a></li>'
 					$("#yhu").html(html);
 				}
 				showHotList();
 				showNewList();
 
+				$("#yhu").click(function (){
+					sessionStorage.removeItem("username");
+				});
+
 			});
+
 			function showHotList() {
 				$("#hot-list").empty();
 				$.ajax({
