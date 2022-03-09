@@ -80,7 +80,7 @@ public class OrderController extends BaseController {
 
     @RequestMapping("/ConfirmGoods")
     public JsonResult<Order> ConfirmGoods(String id) {
-        System.out.println(new BigDecimal(id).toPlainString());
+        System.out.println(id);
         orderService.ConfirmGoods(id);
         return new JsonResult<>(OK);
     }

@@ -62,7 +62,9 @@
                     let list = json.data;
                     var html = '';
                     $.each(list, function (i, n) {
-
+                        var id = n.e.id+""
+                        // alert(id)
+                        console.log(id.length)
                         html += '   <div className="panel-heading">'
                         html += '      <p className="panel-title" id="address">'
                         html += '          ' + "订单号：" + n.oid + "    ,下单时间：" + n.time + ",    收货人：" + n.recvName + '    '
@@ -94,7 +96,7 @@
                         html += '        <div>已发货</div>'
                         html += '        <div><a href="orderInfo.html?id=' + n.e.id + '">订单详情</a></div>'
                         html += '    </td>'
-                        html += '    <td><a href="#" class="btn btn-default btn-xs" onclick="ConfirmGoods('+""+n.e.id+')">确认收货'+n.e.id+'</a></td>'
+                        html += '    <td><input type="button" class="btn btn-default btn-xs" onclick="ConfirmGoods('+id.substring(0,10)+","+id.substring(10,(n.e.id).length)+')" value="确认收货"/></td>'
                         html += '</tr>'
                         html += '          </tbody>  '
                         html += '     </table>'
@@ -112,27 +114,28 @@
         })
     }
 
-    function ConfirmGoods(id){
-        alert(id)
-        $.ajax({
-            url: "/order/ConfirmGoods",
-            data:{
-                "id" : id
-            },
-            type: "POST",
-            dataType: "JSON",
-            success: function(data) {
-                //如果添加成功
-                if (data.state == 200) {
-                    //跳转到工作台的初始也（欢迎页）
-                    window.location.href = "/web/favorites.html";
-                    //如果登录失败
-                } else {
-                    alert("确认收货失败"+data.message)
+        function ConfirmGoods(id,e){
+            var ids = id+''+e
+            $.ajax({
+                url: "/order/ConfirmGoods",
+                data:{
+                    "id" : ids
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function(data) {
+                    //如果添加成功
+                    if (data.state == 200) {
+                        //跳转到工作台的初始也（欢迎页）
+                        alert("收货成功")
+                        window.location.reload();
+                        //如果登录失败
+                    } else {
+                        alert("确认收货失败"+data.message)
+                    }
                 }
-            }
-        });
-    }
+            });
+        }
 
 
 </script>
@@ -218,10 +221,6 @@
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <div><a href="orders.html"><b>全部订单</b></a></div>
-                        <div><a href="orders.html">待付款</a></div>
-                        <div><a href="orders.html">待收货</a></div>
-                        <div><a href="orders.html">待评价</a></div>
-                        <div><a href="orders.html">退货退款</a></div>
                     </div>
                 </div>
             </div>

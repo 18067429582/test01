@@ -273,7 +273,7 @@ public class OrderServiceImpl implements OrderService {
     public void ConfirmGoods(String id) {
         if (id != null){
             orderItemMapper.updataStatus(id);
-            OrderItem orderItem = orderItemMapper.selectById(id);
+            OrderItem orderItem = orderItemMapper.selectByIds(id);
             if (orderItem != null ){
                 Integer count = orderItemMapper.selectByOidAndflag(orderItem.getOid());
                 if (count == 0){

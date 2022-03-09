@@ -24,11 +24,15 @@
         select * from t_order_item where id = #{id} and flag = 0
     </select>
 
+    <select id="selectByIds" resultType="com.bjpowernode.store.domain.OrderItem">
+        select * from t_order_item where id = #{id}
+    </select>
+
     <select id="selectByOidAndflag" resultType="java.lang.Integer">
         select count(*) from t_order_item where oid = #{oid} and flag = 0
     </select>
 
     <update id="updataStatus" parameterType="java.lang.String">
-        update t_order set complete = 1 where id = #{id}
+        update t_order_item set flag = 1 where id = #{id}
     </update>
 </mapper>

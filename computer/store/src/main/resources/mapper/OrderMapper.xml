@@ -49,7 +49,7 @@
     </select>
 
     <update id="updateComplete" parameterType="java.lang.String">
-        update t_order set complete = 1 where id = #{oid}
+        update t_order set complete = 1 where oid = #{oid}
     </update>
 
 </mapper>
