@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserService {
             // 是：表示用户名已被占用，则抛出UsernameDuplicateException异常
             throw new UsernameDuplicateException("尝试注册的用户名[" + username + "]已经被占用");
         }
-
         // 创建当前时间对象
         Date now = new Date();
         // 补全数据：加密后的密码

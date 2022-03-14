@@ -20,21 +20,21 @@ public class LoginInterceptorConfigurer implements WebMvcConfigurer {
 
         // 白名单
         List<String> patterns = new ArrayList<String>();
-        patterns.add("/bootstrap3/**");
-        patterns.add("/css/**");
-        patterns.add("/images/**");
-        patterns.add("/js/**");
-        patterns.add("/web/register.html");
-        patterns.add("/web/login.html");
-        patterns.add("/web/index.html");
-        patterns.add("/web/product.html");
-        patterns.add("/user/reg");
-        patterns.add("/user/login");
-        patterns.add("/districts/**");
-        patterns.add("/products/**");
-        patterns.add("/index.html");
-
-         //通过注册工具添加拦截器
-        registry.addInterceptor(interceptor).addPathPatterns("/**").excludePathPatterns(patterns);
+//        patterns.add("/bootstrap3/**");
+//        patterns.add("/css/**");
+//        patterns.add("/images/**");
+//        patterns.add("/js/**");
+//        patterns.add("/web/register.html");
+//        patterns.add("/web/login.html");
+//        patterns.add("/web/index.html");
+//        patterns.add("/web/product.html");
+//        patterns.add("/user/reg");
+//        patterns.add("/user/login");
+//        patterns.add("/districts/**");
+//        patterns.add("/products/**");
+//        patterns.add("/index.html");
+//
+//         //通过注册工具添加拦截器
+//        registry.addInterceptor(interceptor).addPathPatterns("/**").excludePathPatterns(patterns);
     }
 }

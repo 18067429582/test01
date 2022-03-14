@@ -56,6 +56,10 @@ public class OrderServiceImpl implements OrderService {
         if (!address.getUid().equals(uid)){
             throw new AccessDeniedException("非法数据异常");
         }
+
+        /**
+         * 设置为null是为了减少数据量，
+         */
         address.setProvinceCode(null);
         address.setCityCode(null);
         address.setAreaCode(null);
@@ -200,13 +204,10 @@ public class OrderServiceImpl implements OrderService {
     public Order creatOrderItem(Integer uid, Integer[] cids, String username,String oid) {
         Date now = new Date();
         Order order = new Order();
-//        List<Order> orders = orderMapper.selectByUidComplete(uid);
         Order orders = orderMapper.selectByOid(oid);
-//        System.out.println(oid);
         int count = 0;
             for (int i = 0; i < cids.length; i++ ) {
                if (cids[i] != null){
-                   //System.out.println(cids[i]);
                    Cart cart = cartMapper.selectCartByCidUid(String.valueOf(cids[i]), uid);
                    //System.out.println(cart.getPid());
                    //System.out.println(productMapper.findById(cart.getPid()));
